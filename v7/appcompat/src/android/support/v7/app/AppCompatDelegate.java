@@ -107,6 +107,22 @@ public abstract class AppCompatDelegate {
     public static final int MODE_NIGHT_YES = 2;
 
     /**
+     * Mode which means to always use blackout mode, and therefore use {@code blackout} qualified
+     * resources, regardless of the time.
+     *
+     * @see #setNightMode(int)
+     */
+    public static final int MODE_NIGHT_SAMHAIN = 3;
+
+    /**
+     * Mode which means to always use blackout mode, and therefore use {@code blackout} qualified
+     * resources, regardless of the time.
+     *
+     * @see #setNightMode(int)
+     */
+    public static final int MODE_NIGHT_PIXEL = 4;
+
+    /**
      * Mode which means to use night mode when it is determined that it is night or not.
      *
      * <p>The calculation used to determine whether it is night or not makes use of the location
@@ -134,12 +150,12 @@ public abstract class AppCompatDelegate {
 
     /** @hide */
     @RestrictTo(GROUP_ID)
-    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_AUTO, MODE_NIGHT_FOLLOW_SYSTEM,
-            MODE_NIGHT_UNSPECIFIED})
+    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_PIXEL, MODE_NIGHT_SAMHAIN, MODE_NIGHT_AUTO,
+            MODE_NIGHT_FOLLOW_SYSTEM, MODE_NIGHT_UNSPECIFIED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface NightMode {}
 
-    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_FOLLOW_SYSTEM})
+    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_PIXEL, MODE_NIGHT_SAMHAIN, MODE_NIGHT_FOLLOW_SYSTEM})
     @Retention(RetentionPolicy.SOURCE)
     @interface ApplyableNightMode {}
 
@@ -474,6 +490,8 @@ public abstract class AppCompatDelegate {
             case MODE_NIGHT_NO:
             case MODE_NIGHT_YES:
             case MODE_NIGHT_FOLLOW_SYSTEM:
+            case MODE_NIGHT_SAMHAIN:
+            case MODE_NIGHT_PIXEL:
                 sDefaultNightMode = mode;
                 break;
             default:

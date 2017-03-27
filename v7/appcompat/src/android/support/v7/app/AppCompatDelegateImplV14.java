@@ -127,6 +127,8 @@ class AppCompatDelegateImplV14 extends AppCompatDelegateImplV11 {
             case MODE_NIGHT_AUTO:
             case MODE_NIGHT_NO:
             case MODE_NIGHT_YES:
+            case MODE_NIGHT_SAMHAIN:
+            case MODE_NIGHT_PIXEL:
             case MODE_NIGHT_FOLLOW_SYSTEM:
                 if (mLocalNightMode != mode) {
                     mLocalNightMode = mode;
@@ -191,9 +193,16 @@ class AppCompatDelegateImplV14 extends AppCompatDelegateImplV11 {
         final Configuration conf = res.getConfiguration();
         final int currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-        final int newNightMode = (mode == MODE_NIGHT_YES)
-                ? Configuration.UI_MODE_NIGHT_YES
-                : Configuration.UI_MODE_NIGHT_NO;
+        int newNightMode;
+        if (mode == MODE_NIGHT_YES) {
+            newNightMode = Configuration.UI_MODE_NIGHT_YES;
+        } else if (mode == MODE_NIGHT_SAMHAIN) {
+            newNightMode = Configuration.UI_MODE_NIGHT_SAMHAIN;
+        } else if (mode == MODE_NIGHT_PIXEL) {
+            newNightMode = Configuration.UI_MODE_NIGHT_PIXEL;
+        } else {
+            newNightMode = Configuration.UI_MODE_NIGHT_NO;
+        }
 
         if (currentNightMode != newNightMode) {
             if (shouldRecreateOnNightModeChange()) {
